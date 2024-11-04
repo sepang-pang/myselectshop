@@ -3,6 +3,7 @@ package com.sparta.myselectshop.service.product;
 import com.sparta.myselectshop.domain.Product;
 import com.sparta.myselectshop.dto.request.ProductMyPriceParam;
 import com.sparta.myselectshop.dto.request.ProductParam;
+import com.sparta.myselectshop.dto.response.ItemForm;
 import com.sparta.myselectshop.dto.response.ProductForm;
 import com.sparta.myselectshop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,4 +48,14 @@ public class ProductService {
                 .map(ProductForm::new)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void updateBySearch(Long itemId, ItemForm form) {
+        Product product = productRepository.findById(itemId)
+                .orElseThrow(() -> new NullPointerException("해당 상품은 존재하지 않습니다."));
+
+        product.updateByItemForm(form);
+    }
 }
+
+
