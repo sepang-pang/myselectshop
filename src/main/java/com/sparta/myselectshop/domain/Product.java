@@ -1,5 +1,6 @@
 package com.sparta.myselectshop.domain;
 
+import com.sparta.myselectshop.dto.request.ProductMyPriceParam;
 import com.sparta.myselectshop.dto.request.ProductParam;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -37,5 +38,9 @@ public class Product extends Timestamped {
         this.image = param.getImage();
         this.link = param.getLink();
         this.lprice = param.getLprice();
+    }
+
+    public void update(ProductMyPriceParam param) {
+        this.myprice = param.getMyPrice();
     }
 }
