@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity // JPA가 관리할 수 있는 Entity 클래스 지정
@@ -39,6 +42,9 @@ public class Product extends Timestamped {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductFolder> productFolders = new ArrayList<>();
 
     public Product(ProductParam param, User user) {
         this.title = param.getTitle();
