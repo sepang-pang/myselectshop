@@ -1,4 +1,4 @@
-package com.sparta.myselectshop.naver.service;
+package com.sparta.myselectshop.service.naver;
 
 import com.sparta.myselectshop.dto.response.ItemForm;
 import lombok.extern.slf4j.Slf4j;
