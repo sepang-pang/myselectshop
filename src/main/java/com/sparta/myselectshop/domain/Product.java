@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import static jakarta.persistence.FetchType.LAZY;
+
 @Entity // JPA가 관리할 수 있는 Entity 클래스 지정
 @Getter
 @Setter
@@ -34,11 +36,16 @@ public class Product extends Timestamped {
     @Column(nullable = false)
     private int myprice;
 
-    public Product(ProductParam param) {
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    public Product(ProductParam param, User user) {
         this.title = param.getTitle();
         this.image = param.getImage();
         this.link = param.getLink();
         this.lprice = param.getLprice();
+        this.user = user;
     }
 
     public void update(ProductMyPriceParam param) {
