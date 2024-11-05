@@ -53,6 +53,7 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<ProductForm> getProducts(User user, int page, int size, String sortBy, boolean isAsc) {
 
+        // 리팩토링 필요
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
@@ -80,6 +81,7 @@ public class ProductService {
 
     public void addFolder(Long productId, Long folderId, User user) {
 
+        // 리팩토링 필요
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NullPointerException("해당 상품이 존재하지 않습니다."));
 
@@ -98,6 +100,19 @@ public class ProductService {
         }
 
         productFolderRepository.save(new ProductFolder(product, folder));
+    }
+
+    public Page<ProductForm> getProductsInFolder(Long folderId, int page, int size, String sortBy, boolean isAsc, User user) {
+
+        // 리팩토링 필요
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        // 리팩토링 필요
+        Page<Product> products = productRepository.findAllByUserAndProductFolders_FolderId(user, folderId, pageable);
+
+        return products.map(ProductForm::new);
     }
 }
 
