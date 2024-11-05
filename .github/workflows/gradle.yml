@@ -63,6 +63,6 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/my-select-shop
             docker stop $(docker ps -a -q)
-            docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/my-select-shop
+            docker run --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/my-select-shop
             docker rm $(docker ps --filter 'status=exited' -a -q)
             docker image prune -a -f
